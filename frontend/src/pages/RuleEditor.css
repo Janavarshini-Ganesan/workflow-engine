@@ -1,0 +1,64 @@
+.container {
+  padding: 30px;
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+/* Rule List */
+.rule-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.rule-item {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priority-badge {
+  background: #2563eb;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.rule-text {
+  font-size: 14px;
+}

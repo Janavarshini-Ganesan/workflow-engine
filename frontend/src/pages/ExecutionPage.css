@@ -1,0 +1,84 @@
+.container {
+  padding: 20px;
+}
+
+/* Card Layout */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Titles */
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-top: 20px;
+}
+
+/* Inputs */
+.card input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Button */
+button {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #15803d;
+}
+
+/* Logs */
+.log-card {
+  background: #f8fafc;
+  border-left: 5px solid #2563eb;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+/* Log Header */
+.log-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Status colors */
+.status-success {
+  color: green;
+  font-weight: bold;
+}
+
+.status-failed {
+  color: red;
+  font-weight: bold;
+}
+
+/* Rules */
+.rule-list {
+  margin-top: 5px;
+  padding-left: 15px;
+}
+
+.rule-item {
+  font-size: 13px;
+}

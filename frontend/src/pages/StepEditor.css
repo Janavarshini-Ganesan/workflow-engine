@@ -1,0 +1,83 @@
+.container {
+  padding: 20px;
+}
+
+/* Card Layout */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: auto;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Titles */
+.card h2 {
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-top: 20px;
+}
+
+/* Input & Select */
+.card input,
+.card select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Buttons */
+button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-top: 10px;
+  margin-right: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+/* Step List */
+.step-list {
+  margin-top: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+/* Step Item */
+.step-item {
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Step Name */
+.step-info {
+  font-weight: 500;
+}
+
+/* Rule Button */
+.rule-btn {
+  background-color: #0ea5e9;
+}
+
+.rule-btn:hover {
+  background-color: #0369a1;
+}

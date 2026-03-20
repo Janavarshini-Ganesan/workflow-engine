@@ -1,0 +1,84 @@
+/* Container */
+.audit-container {
+  padding: 30px;
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* Card */
+.audit-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Title */
+.audit-card h2 {
+  margin-bottom: 20px;
+}
+
+/* Table */
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+/* Header */
+.audit-table th {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Rows */
+.audit-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Hover */
+.audit-table tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Status */
+.status-completed {
+  color: green;
+  font-weight: 600;
+}
+
+.status-failed {
+  color: red;
+  font-weight: 600;
+}
+
+/* Button */
+.view-btn {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background-color: #15803d;
+}
+
+/* Logs section */
+.logs-container {
+  margin-top: 20px;
+}
+
+.log-card {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 5px solid #2563eb;
+}
