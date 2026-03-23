@@ -90,7 +90,7 @@ export const updateStep = async (req, res) => {
 
 
 
-// DELETE STEP
+import mongoose from "mongoose";
 import Step from "../models/Step.js";
 import Rule from "../models/Rule.js";
 
@@ -101,26 +101,25 @@ export const deleteStep = async (req, res) => {
 
     console.log("Deleting step:", stepId);
 
-    // 🔍 DEBUG - check rules before delete
-    const rulesBefore = await Rule.find({ step_id: stepId });
-    console.log("Rules before delete:", rulesBefore);
-
-    // 🔥 DELETE RULES (safe method)
-    await Rule.deleteMany({
+    // 🔥 FORCE delete rules (handles both string + ObjectId)
+    const result = await Rule.deleteMany({
       $or: [
-        { step_id: stepId },
-        { step_id: new mongoose.Types.ObjectId(stepId) }
+        { step_id: stepId }, // string match
+        { step_id: new mongoose.Types.ObjectId(stepId) } // ObjectId match
       ]
     });
 
-    // 🔥 DELETE STEP
+    console.log("Deleted rules count:", result.deletedCount);
+
+    // 🔥 Delete step
     await Step.findByIdAndDelete(stepId);
 
     res.json({
-      message: "Step and its rules deleted successfully"
+      message: "Step and related rules deleted successfully"
     });
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: error.message });
   }
 };
