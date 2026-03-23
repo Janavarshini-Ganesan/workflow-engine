@@ -97,30 +97,36 @@ export const deleteWorkflow = async (req, res) => {
   try {
     const workflowId = req.params.id;
 
+    console.log("Deleting workflow:", workflowId);
+
     const workflow = await Workflow.findById(workflowId);
 
     if (!workflow) {
       return res.status(404).json({ message: "Workflow not found" });
     }
 
-    // 1. Get all steps
+    // 1. Steps
     const steps = await Step.find({ workflow_id: workflowId });
+    console.log("Steps:", steps.length);
 
     const stepIds = steps.map(step => step._id);
 
-    // 2. Delete rules
-    await Rule.deleteMany({ step_id: { $in: stepIds } });
+    // 2. Rules
+    const ruleDeleteResult = await Rule.deleteMany({ step_id: { $in: stepIds } });
+    console.log("Rules deleted:", ruleDeleteResult.deletedCount);
 
-    // 3. Delete steps
-    await Step.deleteMany({ workflow_id: workflowId });
+    // 3. Steps delete
+    const stepDeleteResult = await Step.deleteMany({ workflow_id: workflowId });
+    console.log("Steps deleted:", stepDeleteResult.deletedCount);
 
-    // 4. Delete workflow (🔥 FIXED)
-    await Workflow.findByIdAndDelete(workflowId);
+    // 🔥 4. Workflow delete (check here)
+    const wfDelete = await Workflow.findByIdAndDelete(workflowId);
+    console.log("Workflow delete result:", wfDelete);
 
-    res.json({ message: "Workflow, steps and rules deleted successfully" });
+    res.json({ message: "Deleted successfully" });
 
   } catch (error) {
-    console.error("Delete Workflow Error:", error); // 🔥 important
+    console.error("FULL ERROR:", error); // 👈 VERY IMPORTANT
     res.status(500).json({ message: error.message });
   }
 };
