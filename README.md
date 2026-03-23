@@ -1,70 +1,206 @@
-# Getting Started with Create React App
+#  Workflow Engine System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack Workflow Engine that allows users to design workflows, define rules, execute processes, and track execution logs dynamically.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+##  Overview
 
-### `npm start`
+This project enables automation of business processes using configurable workflows.
+Users can create workflows, add steps, define rules, and execute workflows with real-time decision-making.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##  Features
 
-### `npm test`
+###  Workflow Management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Create, update, delete workflows
+* Version control for workflows
+* Define input schema dynamically
 
-### `npm run build`
+###  Step Management
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Add, edit, delete steps
+* Step types:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  * Task
+  * Approval
+  * Notification
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###  Rule Engine
 
-### `npm run eject`
+* Define conditional rules
+* Priority-based rule execution
+* DEFAULT rule support
+* Dynamic next-step selection
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+###  Workflow Execution
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Execute workflows with input data
+* Real-time step progression
+* Rule evaluation engine
+* Automatic step transitions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###  Execution Logs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+* Step-by-step execution tracking
+* Rule evaluation results
+* Status updates
+* Next step decisions
 
-## Learn More
+###  Cascade Delete (Important Feature)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* Deleting workflow removes:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  * Steps
+  * Rules
+  * Executions (if enabled)
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+##  Tech Stack
 
-### Analyzing the Bundle Size
+### Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* React.js
+* CSS (Custom Styling)
 
-### Making a Progressive Web App
+### Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Node.js
+* Express.js
 
-### Advanced Configuration
+### Database
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* MongoDB (Mongoose)
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+##  Project Structure
 
-### `npm run build` fails to minify
+```
+workflow-engine/
+│
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   └── server.js
+│
+├── frontend/
+│   ├── src/pages/
+│   ├── src/services/
+│   └── public/
+│
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+##  Installation & Setup
+
+###  Clone the repository
+
+```
+git clone https://github.com/Janavarshini-Ganesan/workflow-engine.git
+cd workflow-engine
+```
+
+---
+
+###  Backend Setup
+
+```
+cd backend
+npm install
+npm start
+```
+
+---
+
+###  Frontend Setup
+
+```
+cd frontend
+npm install
+npm start
+```
+
+---
+
+##  How to Use
+
+1. Create a Workflow
+2. Add Steps (Task / Approval / Notification)
+3. Define Rules with conditions
+4. Execute workflow with input data
+5. View execution logs
+
+---
+
+##  Example Workflow
+
+**Expense Approval**
+
+Input:
+
+* amount: 250
+* country: US
+* priority: High
+
+Flow:
+
+```
+Manager Approval → Finance Notification → END
+```
+
+---
+
+##  Key Highlights
+
+* Dynamic Rule Evaluation Engine
+* Priority-based execution
+* Clean UI with action controls
+* Cascade delete handling
+* Modular backend architecture
+
+---
+
+##  UI Preview
+
+* Workflow Dashboard
+* Step Editor
+* Rule Editor
+* Execution Logs
+
+---
+
+##  Deployment
+
+* Frontend: Netlify
+* Backend: Render
+
+---
+
+##  Author
+
+**Janavarshini Ganesan**
+
+---
+
+##  Future Enhancements
+
+* Drag & Drop workflow builder
+* Looping & branching support
+* Role-based approvals
+* Notification integrations (Email/Slack)
+* Advanced analytics dashboard
+
+---
+
+##  Conclusion
+
+This project demonstrates a complete workflow automation system with dynamic decision-making and execution tracking, suitable for real-world business process automation.
+
+---
