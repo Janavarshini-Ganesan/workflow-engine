@@ -1,7 +1,6 @@
 import Rule from "../models/Rule.js";
 import Step from "../models/Step.js";
 
-// ADD RULE
 export const addRule = async (req, res) => {
   try {
     const { step_id } = req.params;
@@ -23,6 +22,15 @@ export const addRule = async (req, res) => {
       return res.status(400).json({ message: "Condition required" });
     }
 
+    // ✅ ADD THIS HERE (IMPORTANT)
+    if (condition === "DEFAULT") {
+      const existingDefault = await Rule.findOne({ step_id, condition: "DEFAULT" });
+      if (existingDefault) {
+        return res.status(400).json({ message: "Only one DEFAULT rule allowed" });
+      }
+    }
+
+    // CREATE RULE
     const rule = new Rule({
       step_id,
       condition,
