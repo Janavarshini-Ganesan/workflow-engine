@@ -178,8 +178,10 @@ Manager Approval → Finance Notification → END
 
 ##  Deployment
 
-* Frontend: Netlify
-* Backend: Render
+* **Frontend:** Netlify
+  https://janavarshini-workflowengine.netlify.app/
+* **Backend:** Render
+  https://workflow-backend-bblv.onrender.com/
 
 ---
 
