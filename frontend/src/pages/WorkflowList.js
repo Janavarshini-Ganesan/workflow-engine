@@ -20,6 +20,22 @@ const WorkflowList = () => {
       console.error(error);
     }
   };
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this workflow?");
+
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/workflows/${id}`);
+
+      // refresh list after delete
+      fetchWorkflows();
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete workflow");
+    }
+  };
 
   return (
     <div className="container">
@@ -67,6 +83,7 @@ const WorkflowList = () => {
                   </span>
                 </td>
                 <td>
+                  <div className="actions">
                   <button
                     className="btn-secondary"
                     onClick={() => navigate(`/workflow/${wf._id}/steps`)}
@@ -80,6 +97,13 @@ const WorkflowList = () => {
                   >
                     Execute
                   </button>
+                  <button
+                    className="btn-danger"
+                    onClick={() => handleDelete(wf._id)}
+                  >
+                    Delete
+                  </button>
+                  </div>
                 </td>
               </tr>
             ))}

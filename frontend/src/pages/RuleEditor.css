@@ -62,3 +62,26 @@ button:hover {
 .rule-text {
   font-size: 14px;
 }
+
+.rule-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

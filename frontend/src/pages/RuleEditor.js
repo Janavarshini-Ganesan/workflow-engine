@@ -1,11 +1,16 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import API from "../services/api";
 import "./RuleEditor.css";
 
 const RuleEditor = () => {
 
-  const { id } = useParams();
+  const { id } = useParams(); // step_id
+  const location = useLocation();
+
+  // ✅ get workflowId from URL
+  const queryParams = new URLSearchParams(location.search);
+  const workflowId = queryParams.get("workflowId");
 
   const [rules, setRules] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -13,8 +18,9 @@ const RuleEditor = () => {
   const [condition, setCondition] = useState("");
   const [nextStep, setNextStep] = useState("");
   const [priority, setPriority] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
-  // FETCH RULES
+  // ✅ FETCH RULES
   const fetchRules = useCallback(async () => {
     try {
       const res = await API.get(`/steps/${id}/rules`);
@@ -24,26 +30,25 @@ const RuleEditor = () => {
     }
   }, [id]);
 
-  // FETCH STEPS
+  // ✅ FETCH STEPS (correct workflow)
   const fetchSteps = useCallback(async () => {
     try {
-      const res = await API.get("/workflows");
-      if (res.data.length > 0) {
-        const wfId = res.data[0]._id;
-        const stepRes = await API.get(`/workflows/${wfId}/steps`);
-        setSteps(stepRes.data);
-      }
+      if (!workflowId) return;
+
+      const res = await API.get(`/workflows/${workflowId}/steps`);
+      setSteps(res.data);
+
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [workflowId]);
 
   useEffect(() => {
     fetchRules();
     fetchSteps();
   }, [fetchRules, fetchSteps]);
 
-  // ADD RULE
+  // ✅ ADD / UPDATE RULE
   const addRule = async () => {
     try {
 
@@ -57,20 +62,54 @@ const RuleEditor = () => {
         return;
       }
 
-      await API.post(`/steps/${id}/rules`, {
-        condition,
-        next_step_id: nextStep || null,
-        priority: Number(priority)
-      });
+      if (editingId) {
+        // UPDATE
+        await API.put(`/rules/${editingId}`, {
+          condition,
+          next_step_id: nextStep || null,
+          priority: Number(priority)
+        });
+      } else {
+        // CREATE
+        await API.post(`/steps/${id}/rules`, {
+          condition,
+          next_step_id: nextStep || null,
+          priority: Number(priority)
+        });
+      }
 
+      // reset form
       setCondition("");
       setNextStep("");
       setPriority("");
+      setEditingId(null);
 
       fetchRules();
 
     } catch (err) {
-      alert(err.response?.data?.message || "Error adding rule");
+      alert(err.response?.data?.message || "Error saving rule");
+    }
+  };
+
+  // ✅ EDIT RULE
+  const handleEdit = (rule) => {
+    setCondition(rule.condition);
+    setNextStep(rule.next_step_id?._id || "");
+    setPriority(rule.priority);
+    setEditingId(rule._id);
+  };
+
+  // ✅ DELETE RULE
+  const handleDelete = async (ruleId) => {
+    const confirmDelete = window.confirm("Delete this rule?");
+    if (!confirmDelete) return;
+
+    try {
+      await API.delete(`/rules/${ruleId}`);
+      fetchRules();
+    } catch (error) {
+      console.error(error);
+      alert("Failed to delete rule");
     }
   };
 
@@ -80,7 +119,7 @@ const RuleEditor = () => {
 
         <h2>Rule Editor</h2>
 
-        <h3>Add Rule</h3>
+        <h3>{editingId ? "Edit Rule" : "Add Rule"}</h3>
 
         {/* CONDITION */}
         <input
@@ -92,11 +131,14 @@ const RuleEditor = () => {
         {/* NEXT STEP */}
         <select value={nextStep} onChange={(e) => setNextStep(e.target.value)}>
           <option value="">End Workflow</option>
-          {steps.map((s) => (
-            <option key={s._id} value={s._id}>
-              {s.name}
-            </option>
-          ))}
+
+          {steps
+            .filter((s) => s._id !== id) // avoid self-loop
+            .map((s) => (
+              <option key={s._id} value={s._id}>
+                {s.name}
+              </option>
+            ))}
         </select>
 
         {/* PRIORITY */}
@@ -106,7 +148,9 @@ const RuleEditor = () => {
           onChange={(e) => setPriority(e.target.value)}
         />
 
-        <button onClick={addRule}>Add Rule</button>
+        <button onClick={addRule}>
+          {editingId ? "Update Rule" : "Add Rule"}
+        </button>
 
         <h3>Rules List</h3>
 
@@ -121,6 +165,22 @@ const RuleEditor = () => {
                 {" → "}
                 {r.next_step_id?.name || "END"}
               </span>
+
+              <div className="rule-actions">
+                <button
+                  className="edit-btn"
+                  onClick={() => handleEdit(r)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className="delete-btn"
+                  onClick={() => handleDelete(r._id)}
+                >
+                  Delete
+                </button>
+              </div>
 
             </li>
           ))}

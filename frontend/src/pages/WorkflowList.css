@@ -79,13 +79,15 @@ th {
   background-color: #1e3a8a;
   color: white;
   padding: 12px;
-  text-align: left;
+  text-align: center;
 }
 
 /* Rows */
 td {
   padding: 12px;
   border-bottom: 1px solid #e2e8f0;
+  text-align: center;
+
 }
 
 /* Hover */
@@ -109,4 +111,37 @@ tr:hover {
   text-align: center;
   padding: 20px;
   color: #64748b;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin-left: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+td {
+  vertical-align: middle;
+}
+
+td button {
+  margin-right: 8px;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 8px;
+}
+.actions button {
+  min-width: 80px;
+  align-items: center;
 }

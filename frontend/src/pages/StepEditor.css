@@ -81,3 +81,28 @@ button:hover {
 .rule-btn:hover {
   background-color: #0369a1;
 }
+
+.edit-btn {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.step-actions {
+  display: flex;
+  gap: 8px;
+}
