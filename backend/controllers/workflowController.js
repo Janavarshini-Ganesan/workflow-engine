@@ -95,14 +95,16 @@ export const updateWorkflow = async (req, res) => {
 // DELETE WORKFLOW
 export const deleteWorkflow = async (req, res) => {
   try {
-    const workflow = await Workflow.findById(req.params.id);
+    const workflowId = req.params.id;
+
+    const workflow = await Workflow.findById(workflowId);
 
     if (!workflow) {
       return res.status(404).json({ message: "Workflow not found" });
     }
 
     // 1. Get all steps
-    const steps = await Step.find({ workflow_id: workflow._id });
+    const steps = await Step.find({ workflow_id: workflowId });
 
     const stepIds = steps.map(step => step._id);
 
@@ -110,15 +112,15 @@ export const deleteWorkflow = async (req, res) => {
     await Rule.deleteMany({ step_id: { $in: stepIds } });
 
     // 3. Delete steps
-    await Step.deleteMany({ workflow_id: workflow._id });
+    await Step.deleteMany({ workflow_id: workflowId });
 
-    // 4. Delete workflow
-    await Workflow.findByIdAndDelete(req.params.id);
+    // 4. Delete workflow (🔥 FIXED)
+    await Workflow.findByIdAndDelete(workflowId);
 
     res.json({ message: "Workflow, steps and rules deleted successfully" });
 
   } catch (error) {
-    console.error(error); // 🔥 add this
+    console.error("Delete Workflow Error:", error); // 🔥 important
     res.status(500).json({ message: error.message });
   }
 };
