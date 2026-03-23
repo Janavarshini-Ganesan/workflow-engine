@@ -113,7 +113,7 @@ export const deleteWorkflow = async (req, res) => {
     await Step.deleteMany({ workflow_id: workflow._id });
 
     // 4. Delete workflow
-    await workflow.deleteOne();
+    await Workflow.findByIdAndDelete(req.params.id);
 
     res.json({ message: "Workflow, steps and rules deleted successfully" });
 
