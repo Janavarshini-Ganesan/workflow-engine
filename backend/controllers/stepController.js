@@ -1,7 +1,7 @@
 import Step from "../models/Step.js";
 import Workflow from "../models/Workflow.js";
 import mongoose from "mongoose";
-
+import Rule from "../models/Rule.js";
 // ADD STEP
 export const addStep = async (req, res) => {
   try {
@@ -90,9 +90,7 @@ export const updateStep = async (req, res) => {
 
 
 
-import mongoose from "mongoose";
-import Step from "../models/Step.js";
-import Rule from "../models/Rule.js";
+
 
 export const deleteStep = async (req, res) => {
   try {
