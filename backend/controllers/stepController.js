@@ -91,22 +91,23 @@ export const updateStep = async (req, res) => {
 
 
 // DELETE STEP
+import Step from "../models/Step.js";
 import Rule from "../models/Rule.js";
-
 
 export const deleteStep = async (req, res) => {
   try {
-    const step = await Step.findById(req.params.id);
 
-    if (!step) {
-      return res.status(404).json({ message: "Step not found" });
-    }
+    const stepId = req.params.id;
 
-    // ✅ 1. Delete all rules linked to this step
-    await Rule.deleteMany({ step_id: step._id.toString() });
+    console.log("Deleting step:", stepId);
 
-    // ✅ 2. Delete step
-    await step.deleteOne();
+    // 🔥 DELETE RULES FIRST
+    const deletedRules = await Rule.deleteMany({ step_id: stepId });
+
+    console.log("Rules deleted:", deletedRules);
+
+    // 🔥 DELETE STEP
+    await Step.findByIdAndDelete(stepId);
 
     res.json({
       message: "Step and its rules deleted successfully"
