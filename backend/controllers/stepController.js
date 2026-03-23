@@ -1,6 +1,6 @@
 import Step from "../models/Step.js";
 import Workflow from "../models/Workflow.js";
-
+import mongoose from "mongoose";
 
 // ADD STEP
 export const addStep = async (req, res) => {
@@ -101,10 +101,17 @@ export const deleteStep = async (req, res) => {
 
     console.log("Deleting step:", stepId);
 
-    // 🔥 DELETE RULES FIRST
-    const deletedRules = await Rule.deleteMany({ step_id: stepId });
+    // 🔍 DEBUG - check rules before delete
+    const rulesBefore = await Rule.find({ step_id: stepId });
+    console.log("Rules before delete:", rulesBefore);
 
-    console.log("Rules deleted:", deletedRules);
+    // 🔥 DELETE RULES (safe method)
+    await Rule.deleteMany({
+      $or: [
+        { step_id: stepId },
+        { step_id: new mongoose.Types.ObjectId(stepId) }
+      ]
+    });
 
     // 🔥 DELETE STEP
     await Step.findByIdAndDelete(stepId);
