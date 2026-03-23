@@ -101,9 +101,24 @@ export const deleteWorkflow = async (req, res) => {
       return res.status(404).json({ message: "Workflow not found" });
     }
 
+    // 1. Get all steps
+    const steps = await Step.find({ workflow_id: workflow._id });
+
+    const stepIds = steps.map(step => step._id);
+
+    // 2. Delete rules related to steps
+    await Rule.deleteMany({ step_id: { $in: stepIds } });
+
+    // 3. Delete steps
+    await Step.deleteMany({ workflow_id: workflow._id });
+
+    // 4. Delete executions (IMPORTANT)
+    await Execution.deleteMany({ workflow_id: workflow._id });
+
+    // 5. Delete workflow
     await workflow.deleteOne();
 
-    res.json({ message: "Workflow deleted successfully" });
+    res.json({ message: "Workflow and related data deleted successfully" });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
