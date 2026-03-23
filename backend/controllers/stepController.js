@@ -89,10 +89,10 @@ export const deleteStep = async (req, res) => {
       return res.status(404).json({ message: "Step not found" });
     }
 
-    // delete related rules
+    // 🔥 DELETE ALL RULES of this step
     await Rule.deleteMany({ step_id: step._id });
 
-    // delete step
+    // 🔥 DELETE STEP
     await step.deleteOne();
 
     res.json({ message: "Step and related rules deleted successfully" });
