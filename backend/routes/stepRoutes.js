@@ -4,7 +4,8 @@ import {
   addStep,
   getSteps,
   updateStep,
-  deleteStep
+  deleteStep,
+  getStepById
 } from "../controllers/stepController.js";
 
 const router = express.Router();
@@ -20,7 +21,7 @@ router.get("/workflows/:workflow_id/steps", getSteps);
 
 // UPDATE STEP
 router.put("/steps/:id", updateStep);
-
+router.get("/steps/:id", getStepById);
 
 // DELETE STEP
 router.delete("/steps/:id", deleteStep);
