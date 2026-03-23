@@ -18,7 +18,6 @@ const app = express();
 connectDB();
 
 // Middleware
-import cors from "cors";
 
 app.use(cors({
   origin: "*"
