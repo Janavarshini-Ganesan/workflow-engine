@@ -1,7 +1,7 @@
 import Workflow from "../models/Workflow.js";
 import Step from "../models/Step.js";
 import Rule from "../models/Rule.js";
-
+import Execution from "../models/Execution.js";
 
 // CREATE WORKFLOW
 export const createWorkflow = async (req, res) => {
@@ -106,21 +106,19 @@ export const deleteWorkflow = async (req, res) => {
 
     const stepIds = steps.map(step => step._id);
 
-    // 2. Delete rules related to steps
+    // 2. Delete rules
     await Rule.deleteMany({ step_id: { $in: stepIds } });
 
     // 3. Delete steps
     await Step.deleteMany({ workflow_id: workflow._id });
 
-    // 4. Delete executions (IMPORTANT)
-    await Execution.deleteMany({ workflow_id: workflow._id });
-
-    // 5. Delete workflow
+    // 4. Delete workflow
     await workflow.deleteOne();
 
-    res.json({ message: "Workflow and related data deleted successfully" });
+    res.json({ message: "Workflow, steps and rules deleted successfully" });
 
   } catch (error) {
+    console.error(error); // 🔥 add this
     res.status(500).json({ message: error.message });
   }
 };
