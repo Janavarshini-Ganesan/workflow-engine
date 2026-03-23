@@ -18,10 +18,10 @@ router.post("/workflows/:workflow_id/steps", addStep);
 // GET STEPS
 router.get("/workflows/:workflow_id/steps", getSteps);
 
+router.get("/steps/:id", getStepById);
 
 // UPDATE STEP
 router.put("/steps/:id", updateStep);
-router.get("/steps/:id", getStepById);
 
 // DELETE STEP
 router.delete("/steps/:id", deleteStep);
