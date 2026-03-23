@@ -103,7 +103,7 @@ export const deleteStep = async (req, res) => {
     }
 
     // ✅ 1. Delete all rules linked to this step
-    await Rule.deleteMany({ step_id: step._id });
+    await Rule.deleteMany({ step_id: step._id.toString() });
 
     // ✅ 2. Delete step
     await step.deleteOne();
