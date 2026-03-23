@@ -80,6 +80,7 @@ export const updateStep = async (req, res) => {
 // DELETE STEP
 import Rule from "../models/Rule.js";
 
+
 export const deleteStep = async (req, res) => {
   try {
 
@@ -89,10 +90,10 @@ export const deleteStep = async (req, res) => {
       return res.status(404).json({ message: "Step not found" });
     }
 
-    // 🔥 DELETE ALL RULES of this step
+    // delete related rules
     await Rule.deleteMany({ step_id: step._id });
 
-    // 🔥 DELETE STEP
+    // delete step
     await step.deleteOne();
 
     res.json({ message: "Step and related rules deleted successfully" });
